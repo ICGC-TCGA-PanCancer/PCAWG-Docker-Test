@@ -1,0 +1,6 @@
+data/
+resources/
+tests/
+.crap/
+etc/keyfile.txt
+tmp/

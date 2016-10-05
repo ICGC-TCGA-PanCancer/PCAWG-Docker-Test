@@ -1,0 +1,69 @@
+{
+  "run-id": "run_id",
+  "tumor-bam":
+  {
+    "path":"[TUMOR-BAM]",
+    "class":"File"
+  },
+  "normal-bam":
+  {
+    "path":"[NORMAL-BAM]",
+    "class":"File"
+  },
+  "reference-gz":
+  {
+    "path": "http://s3.amazonaws.com/pan-cancer-data/pan-cancer-reference/genome.fa.gz",
+    "class": "File"
+  },
+  "reference-gc":
+  {
+    "path": "https://s3.amazonaws.com/pan-cancer-data/pan-cancer-reference/hs37d5_1000GP.gc",
+    "class": "File"
+  },
+  "somatic_sv_vcf":
+  {
+    "path":"[OUTPUT-DIR]/[DONOR].delly.somatic.sv.vcf.gz",
+    "class":"File"
+  },
+  "somatic_bedpe":
+  {
+    "path":"[OUTPUT-DIR]/[DONOR].delly.somatic.sv.bedpe.txt",
+    "class":"File"
+  },
+  "cov":
+  {
+    "path":"[OUTPUT-DIR]/[DONOR].delly.sv.cov.tar.gz",
+    "class":"File"
+  },
+  "cov_plots":
+  {
+    "path":"[OUTPUT-DIR]/[DONOR].delly.sv.cov.plots.tar.gz",
+    "class":"File"
+  },
+  "germline_sv_vcf":
+  {
+    "path":"[OUTPUT-DIR]/[DONOR].delly.germline.sv.vcf.gz",
+    "class":"File"
+  },
+  "germline_bedpe":
+  {
+    "path":"[OUTPUT-DIR]/[DONOR].delly.germline.sv.bedpe.txt",
+    "class":"File"
+  },
+  "sv_log":
+  {
+    "path":"[OUTPUT-DIR]/[DONOR].delly.sv.log.tar.gz",
+    "class":"File"
+  },
+  "sv_timing":
+  {
+    "path":"[OUTPUT-DIR]/[DONOR].delly.sv.timing.json",
+    "class":"File"
+  },
+  "sv_qc":
+  {
+    "path":"[OUTPUT-DIR]/[DONOR].delly.sv.qc.json",
+    "class":"File"
+  }
+}
+

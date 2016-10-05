@@ -1,0 +1,3 @@
+Sanger	quay.io/pancancer/pcawg-sanger-cgp-workflow:2.0.0-cwl1
+DKFZ	quay.io/pancancer/pcawg-dkfz-workflow:2.0.0_cwl1.0
+Delly	quay.io/pancancer/pcawg_delly_workflow:2.0.0-cwl1.0

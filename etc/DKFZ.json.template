@@ -1,0 +1,56 @@
+{
+  "run-id": "run_id",
+  "tumor-bam":
+  {
+    "path":"[TUMOR-BAM]",
+    "class":"File"
+  },
+  "normal-bam":
+  {
+    "path":"[NORMAL-BAM]",
+    "class":"File"
+  },
+  "reference-gz":
+  {
+    "path": "[RESOURCE-DIR]/dkfz-workflow-dependencies_150318_0951.tar.gz",
+    "class": "File"
+  },
+  "delly-bedpe":
+  {
+    "path":"[RESOURCE-DIR]/run_id.embl-delly_1-3-0-preFilter.20150318.somatic.sv.bedpe.txt",
+    "class":"File"
+  },
+  "germline_indel_vcf_gz": {
+    "path": "[OUTPUT-DIR]/[DONOR].germline.indel.vcf.gz",
+    "class": "File"
+  },
+  "somatic_snv_mnv_vcf_gz": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.snv.mnv.vcf.gz",
+    "class": "File"
+  },
+  "germline_snv_mnv_vcf_gz": {
+    "path": "[OUTPUT-DIR]/[DONOR].germline.snv.mnv.vcf.gz",
+    "class": "File"
+  },
+  "somatic_cnv_tar_gz": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.cnv.tar.gz",
+    "class": "File"
+  },
+  "somatic_cnv_vcf_gz": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.cnv.vcf.gz",
+    "class": "File"
+  },
+  "somatic_indel_tar_gz": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.indel.tar.gz",
+    "class": "File"
+  },
+  "somatic_snv_mnv_tar_gz": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.snv.mnv.tar.gz",
+    "class": "File"
+  },
+  "somatic_indel_vcf_gz": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.indel.vcf.gz",
+    "class": "File"
+  }
+}
+
