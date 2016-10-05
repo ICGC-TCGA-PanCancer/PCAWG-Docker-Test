@@ -52,8 +52,6 @@ bin/get_gnos_donor.sh DO50398 e09a49a8-6381-55ca-ad62-46290e5b7590 78d071c5-a0f5
 
 IMPORTANT: Make sure you put the Tumor Submitter Bundle ID first and the Normal Submitter Bundle ID second
 
-```
-
 ## Run the test
 
 Decide on the workflow and sample. Workflows are Sanger, DKFZ, and Delly, and samples can be the test sample HCC1143 or any of the donors you prepared
