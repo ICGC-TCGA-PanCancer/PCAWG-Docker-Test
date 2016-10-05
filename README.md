@@ -6,7 +6,7 @@ These are scripts to help run tests
 
 ## Preparation
 
-To use GNOS put your token key in `etc/keyfile.txt` since that is where my scripts will try to find it
+To use GNOS put your token key in `etc/keyfile.txt` since that is where my scripts will try to find it. For the ICGC download client put your token into the ```icgc-storage-client-1.0.19/conf/application.properties``` file
 
 ### Download the DKFZ resources
 
