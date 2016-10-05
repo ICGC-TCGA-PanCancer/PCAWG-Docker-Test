@@ -52,11 +52,6 @@ bin/get_gnos_donor.sh DO50398 e09a49a8-6381-55ca-ad62-46290e5b7590 78d071c5-a0f5
 
 IMPORTANT: Make sure you put the Tumor Submitter Bundle ID first and the Normal Submitter Bundle ID second
 
-ERROR: This now raises an error:
-
-```
-ERROR: Command error: Unrecognized field "projectCode" (class org.icgc.dcc.storage.client.metadata.Entity), not marked as ignorable (4 known properties: "id", "createdTime", "gnosId", "fileName"])
- at [Source: https://meta.icgc.org/entities/e09a49a8-6381-55ca-ad62-46290e5b7590; line: 1, column: 159] (through reference chain: org.icgc.dcc.storage.client.metadata.Entity["projectCode"])
 ```
 
 ## Run the test
