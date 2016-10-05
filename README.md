@@ -47,7 +47,7 @@ table of files with `Data Type` *Aligned Reads* and `Strategy` *WGS* e.g. [FI310
 Get the `Submitter Bundle ID` e.g. 136d60db-bd21-4fbc-9a28-59ea70c06f27. Then type the following command
 
 ```sh
-bin/get_gnos_donor.sh DO50398 136d60db-bd21-4fbc-9a28-59ea70c06f27 136d60db-bd21-4fbc-9a28-59ea70c06f27
+bin/get_gnos_donor.sh DO50398 136d60db-bd21-4fbc-9a28-59ea70c06f27 0bef43a2-352a-42c6-99ff-d97e2675a527
 ```
 
 IMPORTANT: Make sure you put the Tumor Submitter Bundle ID first and the Normal Submitter Bundle ID second
