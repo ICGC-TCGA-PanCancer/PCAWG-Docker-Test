@@ -11,7 +11,7 @@ tmp_dir="$data_dir/tmp/"
 tumor_tmp="$tmp_dir/$donor/tumor"
 normal_tmp="$tmp_dir/$donor/normal"
 
-icgc_client="$base_dir/icgc-storage-client-1.0.19/bin/icgc-storage-client"
+icgc_client="$base_dir/icgc-storage-client-1.0.21/bin/icgc-storage-client"
 
 mkdir -p $tumor_tmp
 mkdir -p $normal_tmp
