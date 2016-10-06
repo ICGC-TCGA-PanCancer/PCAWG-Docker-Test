@@ -35,11 +35,6 @@ IMPORTANT: Make sure you put the Tumor Object ID first and the Normal Object ID 
 
 ERROR: This now raises an error:
 
-```
-ERROR: Command error: Unrecognized field "projectCode" (class org.icgc.dcc.storage.client.metadata.Entity), not marked as ignorable (4 known properties: "id", "createdTime", "gnosId", "fileName"])
- at [Source: https://meta.icgc.org/entities/e09a49a8-6381-55ca-ad62-46290e5b7590; line: 1, column: 159] (through reference chain: org.icgc.dcc.storage.client.metadata.Entity["projectCode"])
-```
-
 ### Get Donor using GNOS
 
 Go to [https://dcc.icgc.org](https://dcc.icgc.org) query for a donor e.g. [DO50398](https://dcc.icgc.org/donors/DO50398). Find the files from the
