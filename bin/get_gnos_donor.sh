@@ -11,7 +11,7 @@ tmp_dir="$data_dir/tmp/"
 tumor_tmp="$tmp_dir/$donor/tumor"
 normal_tmp="$tmp_dir/$donor/normal"
 
-gnos_client="gtdownload -c $base_dir/etc/keyfile.txt"
+gnos_client="gtdownload -c $base_dir/etc/keyfile.txt -vv"
 
 mkdir -p $tumor_tmp
 mkdir -p $normal_tmp
