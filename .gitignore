@@ -4,4 +4,4 @@ tests/
 .crap/
 etc/keyfile.txt
 tmp/
-icgc-storage-client-1.0.19/logs/client.log
+icgc-storage-client-1.0.21/logs/client.log
