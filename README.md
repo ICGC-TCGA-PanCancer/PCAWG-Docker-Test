@@ -61,6 +61,11 @@ or
 bin/run_test.sh Delly DO50398
 ```
 
-The results will be under `tests/<workflow>/<sample>/output/<sample>.*` for example `tests/Sanger/HCC1143/output/HCC1143.somatic.snv.mnv.tar.gz`
+Note that to run DKFZ you need to have ran Delly before so the bedpe file is produced
 
-IMPORTANT: I still havent worked out what the `*.bedpe*` file is for DKFZ exactly is and how to produce it
+```sh
+bin/run_test.sh DKFZ DO50398
+```
+
+The results will be under `tests/<workflow>/<sample>/output/<sample>.*` for example `tests/Sanger/HCC1143/output/HCC1143.somatic.snv.mnv.tar.gz`
+After the process is finished you may want to remove the directory `tests/<workflow>/<sample>/datadir/` since it holds a copy of the input files.
