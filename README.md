@@ -33,8 +33,6 @@ bin/get_icgc_donor.sh DO50398 e09a49a8-6381-55ca-ad62-46290e5b7590 78d071c5-a0f5
 
 IMPORTANT: Make sure you put the Tumor Object ID first and the Normal Object ID second
 
-ERROR: This now raises an error:
-
 ### Get Donor using GNOS
 
 Go to [https://dcc.icgc.org](https://dcc.icgc.org) query for a donor e.g. [DO50398](https://dcc.icgc.org/donors/DO50398). Find the files from the
