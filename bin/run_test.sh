@@ -10,10 +10,12 @@ delly_dir="$base_dir/tests/Delly/$donor/output/"
 output_dir="$directory/output/"
 tumor_bam="$base_dir/data/$donor/tumor.bam"
 normal_bam="$base_dir/data/$donor/normal.bam"
+tumor_bam_unaligned="$base_dir/data/$donor/tumor.unaligned.bam"
+normal_bam_unaligned="$base_dir/data/$donor/normal.unaligned.bam"
 
 mkdir -p "$directory"
 mkdir -p "$output_dir"
-cat $base_dir/etc/$workflow.json.template | sed "s#\\[DELLY-DIR\\]#$delly_dir#g;s#\\[RESOURCE-DIR\\]#$resource_dir#g;s#\\[OUTPUT-DIR\\]#$output_dir#g;s#\\[DONOR\\]#$donor#g;s#\\[TUMOR-BAM\\]#$tumor_bam#g;s#\\[NORMAL-BAM\\]#$normal_bam#g" > $directory/Dockstore.json
+cat $base_dir/etc/$workflow.json.template | sed "s#\\[DELLY-DIR\\]#$delly_dir#g;s#\\[RESOURCE-DIR\\]#$resource_dir#g;s#\\[OUTPUT-DIR\\]#$output_dir#g;s#\\[DONOR\\]#$donor#g;s#\\[TUMOR-BAM\\]#$tumor_bam#g;s#\\[NORMAL-BAM\\]#$normal_bam#g;s#\\[TUMOR-BAM-UNALIGNED\\]#$tumor_bam_unaligned#g;s#\\[NORMAL-BAM-UNALIGNED\\]#$normal_bam_unaligned#g" > $directory/Dockstore.json
 
 cd "$directory"
 

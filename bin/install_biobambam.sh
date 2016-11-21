@@ -12,13 +12,13 @@ old_pwd=$PWD
 cd $modules_dir/libmaus
 autoreconf -i -f
 ./configure --prefix="$lib_maus"
-make
+make && make install
 cd $old_pwd
 
 
 cd $modules_dir/biobambam
 autoreconf -i -f
 ./configure --with-libmaus="$lib_maus" --prefix="$lib_biobambam"
-make
+make && make install
 cd $old_pwd
 

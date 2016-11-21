@@ -1,3 +1,4 @@
 Sanger	quay.io/pancancer/pcawg-sanger-cgp-workflow:2.0.2
 DKFZ	quay.io/pancancer/pcawg-dkfz-workflow:2.0.0_cwl1.0
 Delly	quay.io/pancancer/pcawg_delly_workflow:2.0.0-cwl1.0
+BWA-Mem	quay.io/pancancer/pcawg-bwa-mem-workflow:2.6.8_1.1

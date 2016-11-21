@@ -25,7 +25,7 @@ if [[ ! -f $orig_vcf ]]; then
 	old_pwd=$PWD
 	cd $tmp_dir
 	tar_vcf_file="preliminary_final_release/snv_mnv/${aliquote}.annotated.snv_mnv.vcf.gz"
-	tar xvfz "$PCAWG_dir/SNV_MNV_Mar28.tgz" $tar_vcf_file
+	tar xvfz "$PCAWG_dir/SNV_MNV_Mar28.tgz" $tar_vcf_file 2> /dev/null
 	zcat $tar_vcf_file >> "$orig_vcf"
         rm -Rf "preliminary_final_release/"
 	cd $old_pwd
@@ -56,12 +56,17 @@ grep $vcf_pattern $orig_vcf | cut -f 1,2,4 | tr '\t' ':' | sort > $orig_list
 grep PASS $new_vcf | cut -f 1,2,4 | tr '\t' ':' | sort > $new_list
 
 extra_lines_c=$(comm -2 -3 $new_list $orig_list | wc -l)
+common_lines_c=$(comm -1 -2 $new_list $orig_list | wc -l)
 missing_lines_c=$(comm -1 -3 $new_list $orig_list | wc -l)
 extra_lines_ex=$(comm -2 -3 $new_list $orig_list | head -n 3|tr '\n' ','|sed 's/,$//')
 missing_lines_ex=$(comm -1 -3 $new_list $orig_list | head -n 3|tr '\n' ','|sed 's/,$//')
 
+echo
 echo "Comparison for $donor using $workflow"
 echo "---"
-echo "Extra: $extra_lines_c. Example: $extra_lines_ex"
-echo "Missing: $missing_lines_c. Example: $missing_lines_ex"
+echo "Common: $common_lines_c"
+echo "Extra: $extra_lines_c"
+[[ $extra_lines_c -gt 0 ]] && echo "    - Example: $extra_lines_ex"
+echo "Missing: $missing_lines_c"
+[[ $missing_lines_c -gt 0 ]] && echo "    - Example: $missing_lines_ex"
 echo
