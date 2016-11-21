@@ -1,0 +1,6 @@
+[submodule "modules/libmaus"]
+	path = modules/libmaus
+	url = https://github.com/gt1/libmaus.git
+[submodule "modules/biobambam"]
+	path = modules/biobambam
+	url = https://github.com/gt1/biobambam.git
