@@ -8,40 +8,52 @@ directory="$base_dir/tests/$workflow/$donor/"
 output_dir="$directory/output/"
 PCAWG_dir="$base_dir/PCAWG/"
 
+release_file="$PCAWG_dir/release_may2016.v1.2.tsv"
+
 aliquote=$(grep $donor "${PCAWG_dir}/donor_wgs_samples" | cut -f 2)
 
 tmp_dir="$base_dir/tmp"
-orig_vcf="$tmp_dir/${donor}.orig.vcf"
-new_vcf="$tmp_dir/${donor}.${workflow}.vcf"
+orig_vcf="$tmp_dir/${donor}.${workflow}.orig.vcf.gz"
+new_vcf="$tmp_dir/${donor}.${workflow}.vcf.gz"
 
-orig_list="${orig_vcf}.${workflow}.list"
+orig_list="${orig_vcf}.list"
 new_list="${new_vcf}.list"
 
 
 [[ -f $tmp_dir ]] || mkdir -p $tmp_dir
 
+
 # GET ORIGINAL VCF FILE FROM TGZ
 if [[ ! -f $orig_vcf ]]; then
-	old_pwd=$PWD
-	cd $tmp_dir
-	tar_vcf_file="preliminary_final_release/snv_mnv/${aliquote}.annotated.snv_mnv.vcf.gz"
-	tar xvfz "$PCAWG_dir/SNV_MNV_Mar28.tgz" $tar_vcf_file 2> /dev/null
-	zcat $tar_vcf_file >> "$orig_vcf"
-        rm -Rf "preliminary_final_release/"
-	cd $old_pwd
+	case $workflow in
+		DKFZ)
+			workflow_tag="dkfz_embl"
+		;;
+		Sanger)
+			workflow_tag="sanger"
+		;;
+		BWA-Mem)
+		;;
+	esac
+	gnos_column=$(head -n 1 $release_file  |tr '\t' '\n' | nl |grep ${workflow_tag}_variant_calling_gnos_id|cut -f 1)
+	gnos_id=$(grep $donor $release_file  | cut -f $gnos_column)
+	echo "Downloading VCF for donor $donor, GNOS id: $gnos_id"
+	$base_dir/bin/get_gnos_vcf.sh $gnos_id $orig_vcf
 fi
 
 # GET NEW VCF FILE WORKFLOW OUTPUT
 case $workflow in
   	DKFZ)
        		workflow_result_vcf="$output_dir/${donor}.somatic.snv.mnv.vcf.gz"
-		zcat "$workflow_result_vcf" > "$new_vcf"
+		cp "$workflow_result_vcf" "$new_vcf"
 		vcf_pattern="dkfz"
 	;;
   	Sanger)
        		workflow_result_tar="$output_dir/${donor}.somatic.snv.mnv.tar.gz"
-       		workflow_result_vcf="$output_dir/${donor}.somatic.snv.mnv.tar.gz"
-		vcf_pattern="sanger"
+		tar_tmp="$tmp_dir/tar/"
+		mkdir -p $tar_tmp
+                (cd $tar_tmp; tar xvfz $workflow_result_tar; cp `find -name *muts.ids.vcf.gz` $new_vcf)
+		rm -Rf $tar_tmp
 	;;
   	BWA-Mem)
        		workflow_result_vcf="$output_dir/${donor}.somatic.snv.mnv.vcf.gz"
@@ -52,8 +64,8 @@ case $workflow in
 esac
 
 # EXTRACT MUTATIONS FROM BOTH FILES
-grep $vcf_pattern $orig_vcf | cut -f 1,2,4 | tr '\t' ':' | sort > $orig_list
-grep PASS $new_vcf | cut -f 1,2,4 | tr '\t' ':' | sort > $new_list
+zcat "$orig_vcf" | grep -v "#"| cut -f 1,2,5 | tr '\t' ':' | sort > $orig_list
+zcat "$new_vcf" | grep -v "#"| cut -f 1,2,5 | tr '\t' ':' | sort > $new_list
 
 extra_lines_c=$(comm -2 -3 $new_list $orig_list | wc -l)
 common_lines_c=$(comm -1 -2 $new_list $orig_list | wc -l)

@@ -17,7 +17,7 @@ for line in $(cat $donor_file); do
 		[[ $workflow == 'BWA-Mem' ]] && echo $base_dir/bin/prepare_unaligned.sh $donor 
 		[[ $workflow == 'DKFZ' ]] && echo $base_dir/bin/run_test.sh Delly $donor 
 		echo $base_dir/bin/run_test.sh $workflow $donor 
-		echo $base_dir/bin/compare_result.sh $workflow $donor 
+		echo $base_dir/bin/compare_result.sh $workflow $donor | tee $base_dir/${donor}.${workflow}.comparison.txt
                 echo rm -Rf $base_dir/test/$workflow/$donor
 		[[ $workflow == 'DKFZ' ]] && echo rm -Rf $base_dir/test/Delly/$donor
 	done
