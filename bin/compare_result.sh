@@ -23,7 +23,7 @@ new_list="${new_vcf}.list"
 [[ -f $tmp_dir ]] || mkdir -p $tmp_dir
 
 
-# GET ORIGINAL VCF FILE FROM TGZ
+# GET ORIGINAL VCF FILE FROM GNOS
 if [[ ! -f $orig_vcf ]]; then
 	case $workflow in
 		DKFZ)
