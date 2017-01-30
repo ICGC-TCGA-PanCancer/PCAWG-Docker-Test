@@ -35,6 +35,8 @@ if [[ ! -f $orig_vcf ]]; then
 			workflow_tag="sanger"
 		;;
 		BWA-Mem)
+			echo "Not implemented"
+			exit -1
 		;;
 	esac
 	gnos_column=$(head -n 1 $release_file  |tr '\t' '\n' | nl |grep ${workflow_tag}_variant_calling_gnos_id|cut -f 1)
@@ -45,7 +47,15 @@ fi
 # GET NEW VCF FILE WORKFLOW OUTPUT
 case $workflow in
   	DKFZ)
-       		workflow_result_vcf="$output_dir/${donor}.${type}.vcf.gz"
+                if [ "$type" == "somatic.sv" -o "$type" == "germline.sv" ]; then
+			workflow_result_vcf="${output_dir/DKFZ/Delly}/${donor}.delly.${type}.vcf.gz"
+		else
+			workflow_result_vcf="$output_dir/${donor}.${type}.vcf.gz"
+ 		fi
+                if [ ! -f "$workflow_result_vcf" ]; then
+			echo "File not found $workflow_result_vcf"
+			exit -1
+		fi
 		cp "$workflow_result_vcf" "$new_vcf"
 		vcf_pattern="dkfz"
 	;;
@@ -57,9 +67,8 @@ case $workflow in
 		rm -Rf $tar_tmp
 	;;
   	BWA-Mem)
-       		workflow_result_vcf="$output_dir/${donor}.somatic.snv.mnv.vcf.gz"
-		zcat "$workflow_result_vcf" > "$new_vcf"
-		vcf_pattern="dkfz"
+		echo "Not implemented"
+		exit -1
 	;;
 
 esac
@@ -71,6 +80,7 @@ zcat "$new_vcf" | grep -v "#"| cut -f 1,2,4,5 | tr '\t' ':' | sort > $new_list
 extra_lines_c=$(comm -2 -3 $new_list $orig_list | wc -l)
 common_lines_c=$(comm -1 -2 $new_list $orig_list | wc -l)
 missing_lines_c=$(comm -1 -3 $new_list $orig_list | wc -l)
+
 extra_lines_ex=$(comm -2 -3 $new_list $orig_list | head -n 3|tr '\n' ','|sed 's/,$//')
 missing_lines_ex=$(comm -1 -3 $new_list $orig_list | head -n 3|tr '\n' ','|sed 's/,$//')
 

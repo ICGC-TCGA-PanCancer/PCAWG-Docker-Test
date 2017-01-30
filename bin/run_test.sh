@@ -21,4 +21,4 @@ cd "$directory"
 
 cwl="$(grep $workflow "$base_dir/etc/workflows" | cut -f 2)"
 
-(cd $directory && dockstore tool launch --entry "$cwl"  --json Dockstore.json)
+(cd $directory && dockstore tool launch --script --entry "$cwl"  --json Dockstore.json)
