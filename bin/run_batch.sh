@@ -12,7 +12,7 @@ for line in $(cat $donor_file); do
 	normal_obj=$(echo $line|cut -f 4 -d',')
 	normal_sub=$(echo $line|cut -f 5 -d',')
         
-        if [ -z $target_donor -o $target_donor == $donor ]; then
+        if [ -z $target_donor -o $target_donor==$donor ]; then
 
 		[[ ! -d  $base_dir/data/$donor ]] && $base_dir/bin/get_gnos_donor.sh $donor $tumor_sub $normal_sub
 
