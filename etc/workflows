@@ -2,3 +2,4 @@ Sanger	quay.io/pancancer/pcawg-sanger-cgp-workflow:2.0.3
 DKFZ	quay.io/pancancer/pcawg-dkfz-workflow:2.0.1_cwl1.0
 Delly	quay.io/pancancer/pcawg_delly_workflow:2.0.1-cwl1.0
 BWA-Mem	quay.io/pancancer/pcawg-bwa-mem-workflow:2.6.8_1.2
+BiasFilter	quay.io/jwerner_dkfz/DKFZBiasFilter:1.2.2 
