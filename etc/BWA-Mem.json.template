@@ -1,12 +1,6 @@
 {
   "reads": [
-  {
-  "path":"[TUMOR-BAM-UNALIGNED]",
-  "class":"File"
-  },
-  {"path":"[NORMAL-BAM-UNALIGNED]",
-  "class":"File"
-  }
+[UNALIGNED]
   ],
   "output_dir": "datastore",
   "output_file_basename": "[DONOR]",
