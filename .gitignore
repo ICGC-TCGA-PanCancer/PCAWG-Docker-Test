@@ -10,3 +10,4 @@ PCAWG/SNV_MNV_Mar28.tgz
 *comparison.txt
 lib/biobambam/
 lib/libmaus/
+*.log
