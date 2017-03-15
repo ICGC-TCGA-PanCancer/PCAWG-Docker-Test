@@ -1,40 +1,54 @@
 #!/bin/bash
 
 donor=$1
+type=$2
 
 base_dir=$(dirname $(dirname $(readlink -f bin/get_gnos_donor.sh)))
 resource_dir="$base_dir/resources/"
-tumor_bam="$base_dir/data/$donor/tumor.bam"
-normal_bam="$base_dir/data/$donor/normal.bam"
-tumor_bam_unaligned="$base_dir/data/$donor/tumor.unaligned.bam"
-normal_bam_unaligned="$base_dir/data/$donor/normal.unaligned.bam"
+data_dir="$base_dir/data/$donor/"
+tmp_dir="$base_dir/tmp/$donor"
+header_file="$tmp_dir/bam_header.sam"
+aligned_bam="$data_dir/$type.bam"
+tmp_unaligned="$tmp_dir/$type/unaligned/"
 
-normal_header_file="$base_dir/tmp/normal_bam_header.sam"
-tumor_header_file="$base_dir/tmp/tumor_bam_header.sam"
+mkdir -p $tmp_unaligned
 
-cat > $normal_header_file <<-EOF
-@HD	VN:1.4
-@RG	ID:DOCKER:${1}.normal	CN:DOCKER	PL:ILLUMINA	PM:Illumina HiSeq 2000	LB:WGS:DOCKER:28085	PI:453	SM:00000000-0000-0000-0000-000000000000	PU:DOCKER:1_1	DT:2013-03-18T00:00:00+00:00
-@CO	dcc_project_code:DOCKER-TEST
-@CO	submitter_donor_id:$1
-@CO	submitter_specimen_id:${1}.specimen
-@CO	submitter_sample_id:${1}.sample
-@CO	dcc_specimen_type:Normal
-@CO	use_cntl:85098796-a2c1-11e3-a743-6c6c38d06053
-EOF
 
-cat > $tumor_header_file <<-EOF
-@HD	VN:1.4
-@RG	ID:DOCKER:${1}.tumor	CN:DOCKER	PL:ILLUMINA	PM:Illumina HiSeq 2000	LB:WGS:DOCKER:28085	PI:453	SM:00000000-0000-0000-0000-000000000001	PU:DOCKER:2_2	DT:2013-03-18T00:00:00+00:00
-@CO	dcc_project_code:DOCKER-TEST
-@CO	submitter_donor_id:$1
-@CO	submitter_specimen_id:${1}.specimen
-@CO	submitter_sample_id:${1}.sample
-@CO	dcc_specimen_type:Primary tumour - solid tissue
-@CO	use_cntl:85098796-a2c1-11e3-a743-6c6c38d06053
-EOF
+java -Xmx8G -jar $base_dir/lib/picard/picard.jar RevertSam \
+		I=$aligned_bam \
+		O=$tmp_unaligned \
+		OUTPUT_BY_READGROUP=true \
+		OUTPUT_BY_READGROUP_FILE_FORMAT=bam \
+		ATTRIBUTE_TO_CLEAR=XS \
+		SORT_ORDER=unsorted \
+		RESTORE_ORIGINAL_QUALITIES=true \
+		REMOVE_DUPLICATE_INFORMATION=true \
+		REMOVE_ALIGNMENT_INFORMATION=true \
+		TMP_DIR=$tmp_dir
 
-cat "$tumor_bam" | $base_dir/lib/biobambam/bin/bamreset resetheadertext=$tumor_header_file exclude=QCFAIL,SECONDARY,SUPPLEMENTARY > "$tumor_bam_unaligned"
-#rm "$tumor_bam"
-cat "$normal_bam" | $base_dir/lib/biobambam/bin/bamreset  resetheadertext=$normal_header_file exclude=QCFAIL,SECONDARY,SUPPLEMENTARY > "$normal_bam_unaligned"
-#rm "$normal_bam"
+
+counter=1
+for file in $(find ${tmp_unaligned} -name *.bam)
+do
+
+	RG=$(java -Xmx8G -jar $base_dir/lib/picard/picard.jar ViewSam INPUT=$file HEADER_ONLY=true | grep "^@RG")
+
+	cat > $header_file <<-EOF
+	@HD	VN:1.4
+	${RG}
+	@CO	dcc_project_code:DOCKER-TEST
+	@CO	submitter_donor_id:${1}
+	@CO	submitter_specimen_id:${1}.specimen
+	@CO	submitter_sample_id:${1}.sample
+	@CO	dcc_specimen_type:Primary tumour - solid tissue
+	@CO	use_cntl:85098796-a2c1-11e3-a743-6c6c38d06053
+	EOF
+
+	java -Xmx8G -jar $base_dir/lib/picard/picard.jar ReplaceSamHeader \
+		I=$file \
+		HEADER=$header_file \
+		O=${data_dir}${type}.unaligned.${counter}.bam
+
+	rm $file
+	((counter++))
+done
