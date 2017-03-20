@@ -2,51 +2,55 @@
   "reads": [
 [UNALIGNED]
   ],
-  "output_dir": "datastore",
+  "output_dir": "./results/",
   "output_file_basename": "[DONOR]",
-  "download_reference_files": "true",
+  "download_reference_files": "false",
   "reference_gz_amb": {
-    "path": "https://dcc.icgc.org/api/v1/download?fn=/PCAWG/reference_data/pcawg-bwa-mem/genome.fa.gz.64.amb",
+    "path": "[RESOURCE-DIR]/genome.fa.gz.64.amb",
     "class": "File"
   },
   "reference_gz_sa": {
-    "path": "https://dcc.icgc.org/api/v1/download?fn=/PCAWG/reference_data/pcawg-bwa-mem/genome.fa.gz.64.sa",
+    "path": "[RESOURCE-DIR]/genome.fa.gz.64.sa",
     "class": "File"
   },
   "reference_gz_pac": {
-    "path": "https://dcc.icgc.org/api/v1/download?fn=/PCAWG/reference_data/pcawg-bwa-mem/genome.fa.gz.64.pac",
+    "path": "[RESOURCE-DIR]/genome.fa.gz.64.pac",
     "class": "File"
   },
   "reference_gz_ann": {
-    "path": "https://dcc.icgc.org/api/v1/download?fn=/PCAWG/reference_data/pcawg-bwa-mem/genome.fa.gz.64.ann",
+    "path": "[RESOURCE-DIR]/genome.fa.gz.64.ann",
     "class": "File"
   },
   "reference_gz_bwt": {
-    "path": "https://dcc.icgc.org/api/v1/download?fn=/PCAWG/reference_data/pcawg-bwa-mem/genome.fa.gz.64.bwt",
+    "path": "[RESOURCE-DIR]/genome.fa.gz.64.bwt",
     "class": "File"
   },
   "reference_gz_fai": {
-    "path": "https://dcc.icgc.org/api/v1/download?fn=/PCAWG/reference_data/pcawg-bwa-mem/genome.fa.gz.fai",
+    "path": "[RESOURCE-DIR]/genome.fa.gz.fai",
     "class": "File"
   },
   "reference_gz": {
-    "path": "https://dcc.icgc.org/api/v1/download?fn=/PCAWG/reference_data/pcawg-bwa-mem/genome.fa.gz",
+    "path": "[RESOURCE-DIR]/genome.fa.gz",
+    "class": "File"
+  },
+  "merged_output_unmapped_metrics": {
+    "path": "[OUTPUT-DIR]/[DONOR].[TYPE].merged_output.unmapped.bam.metrics",
     "class": "File"
   },
   "merged_output_unmapped_bai": {
-    "path": "[OUTPUT-DIR]/[DONOR].merged_output.unmapped.bam.bai",
+    "path": "[OUTPUT-DIR]/[DONOR].[TYPE].merged_output.unmapped.bam.bai",
     "class": "File"
   },
   "merged_output_bam": {
-    "path": "[OUTPUT-DIR]/[DONOR].merged_output.bam",
+    "path": "[OUTPUT-DIR]/[DONOR].[TYPE].merged_output.bam",
     "class": "File"
   },
   "merged_output_unmapped_bam": {
-    "path": "[OUTPUT-DIR]/[DONOR].merged_output.unmapped.bam",
+    "path": "[OUTPUT-DIR]/[DONOR].[TYPE].merged_output.unmapped.bam",
     "class": "File"
   },
   "merged_output_bai": {
-    "path": "[OUTPUT-DIR]/[DONOR].merged_output.bam.bai",
+    "path": "[OUTPUT-DIR]/[DONOR].[TYPE].merged_output.bam.bai",
     "class": "File"
   }
 }
