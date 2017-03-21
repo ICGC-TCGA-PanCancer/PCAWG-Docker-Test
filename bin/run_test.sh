@@ -31,7 +31,7 @@ then
 	unaligned_json=${unaligned_json%,\\n}
 fi
 
-cat $base_dir/etc/$workflow.json.template | sed "s#\\[CONSENSUS-VCF\\]#$consensus_vcf#g;s#\\[DELLY-DIR\\]#$delly_dir#g;s#\\[RESOURCE-DIR\\]#$resource_dir#g;s#\\[OUTPUT-DIR\\]#$output_dir#g;s#\\[DONOR\\]#$donor#g;s#\\[TUMOR-BAM\\]#$tumor_bam#g;s#\\[NORMAL-BAM\\]#$normal_bam#g;s#\\[UNALIGNED\\]#$unaligned_json#g" > $directory/Dockstore.json
+cat $base_dir/etc/$workflow.json.template | sed "s#\\[CONSENSUS-VCF\\]#$consensus_vcf#g;s#\\[DELLY-DIR\\]#$delly_dir#g;s#\\[RESOURCE-DIR\\]#$resource_dir#g;s#\\[OUTPUT-DIR\\]#$output_dir#g;s#\\[DONOR\\]#$donor#g;s#\\[TUMOR-BAM\\]#$tumor_bam#g;s#\\[NORMAL-BAM\\]#$normal_bam#g;s#\\[TYPE\\]#$type#g;s#\\[UNALIGNED\\]#$unaligned_json#g" > $directory/Dockstore.json
 
 cd "$directory"
 
