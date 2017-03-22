@@ -21,6 +21,7 @@ then
 	specimen_type="Primary tumour - solid tissue"
 else
 	echo "Please define type of bam: normal/tumor"
+	exit -1
 fi
 
 java -Xmx8G -jar $base_dir/lib/picard/picard.jar RevertSam \
@@ -45,9 +46,9 @@ do
 	@HD	VN:1.4
 	${RG}
 	@CO	dcc_project_code:DOCKER-TEST
-	@CO	submitter_donor_id:${1}
-	@CO	submitter_specimen_id:${1}.specimen
-	@CO	submitter_sample_id:${1}.sample
+	@CO	submitter_donor_id:${donor}
+	@CO	submitter_specimen_id:${donor}.specimen
+	@CO	submitter_sample_id:${donor}.sample
 	@CO	dcc_specimen_type:${specimen_type}
 	@CO	use_cntl:85098796-a2c1-11e3-a743-6c6c38d06053
 	EOF

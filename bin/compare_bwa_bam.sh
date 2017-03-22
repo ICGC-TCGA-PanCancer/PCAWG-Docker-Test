@@ -7,20 +7,20 @@ TAB="	"
 
 base_dir=$(dirname $(dirname $(readlink -f bin/get_gnos_donor.sh)))
 tmp_dir="$base_dir/tmp/BWA_BAM_compare"
-bwa_tumor_cut="$tmp_dir/bwa.tumor.cut"
-bwa_normal_cut="$tmp_dir/bwa.normal.cut"
 tumor_cut="$tmp_dir/tumor.cut"
 normal_cut="$tmp_dir/normal.cut"
+orig_cut="$tmp_dir/orig.cut"
+bwa_cut="$tmp_dir/bwa.cut"
 comparison="$tmp_dir/comparison"
 
 mkdir -p $tmp_dir
-samtools view -f 64 "$bwa_bam" | grep tumor |cut -f 1,3,4,17 | LC_ALL=C sort -t "$TAB" > $bwa_tumor_cut
-samtools view -f 64 "$tumor"  | cut -f 1,3,4,17 | LC_ALL=C sort -t "$TAB" > $tumor_cut
-samtools view -f 64 "$bwa_bam" | grep normal |cut -f 1,3,4,17 | LC_ALL=C sort -t "$TAB" > $bwa_normal_cut
-samtools view -f 64 "$normal"  | cut -f 1,3,4,17 | LC_ALL=C sort -t "$TAB" > $normal_cut
+samtools view -f 64 "$bwa_bam" | cut -f 1,3,4,17 | LC_ALL=C sort -t "$TAB" > $bwa_cut
 
-LC_ALL=C join "$bwa_tumor_cut" "$tumor_cut" > $comparison
-LC_ALL=C join "$bwa_normal_cut" "$normal_cut" >> $comparison
+samtools view -f 64 "$tumor"  | cut -f 1,3,4,17  > $tumor_cut
+samtools view -f 64 "$normal"  | cut -f 1,3,4,17 > $normal_cut
+cat  $tumor_cut $normal_cut | LC_ALL=C sort -t "$TAB" > $orig_cut
+
+LC_ALL=C join "$bwa_cut" "$orig_cut" > $comparison
 
 ruby <<-EOF
 #!/usr/bin/ruby
