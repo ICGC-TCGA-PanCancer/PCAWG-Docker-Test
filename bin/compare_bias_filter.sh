@@ -16,7 +16,7 @@ for tag in bPcr bSeq; do
         new_list=$tmp_dir/${donor}.$tag.new
         orig_list=$tmp_dir/${donor}.$tag.orig
 
-	grep $tag $original_vcf | grep -v "^#" | cut -f 1,2,4,5 | sort > $orig_list
+	grep $tag $original_vcf | grep -v LOWSUPPORT | grep -v OXOG | grep -v "^#" | cut -f 1,2,4,5 | sort > $orig_list
 	grep $tag $new_vcf | grep -v "^#" | cut -f 1,2,4,5 | sort > $new_list
 
 	extra_lines_c=$(comm -2 -3 $new_list $orig_list | wc -l)

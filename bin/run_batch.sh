@@ -29,11 +29,21 @@ for line in $(cat $donor_file); do
 			echo > "$result_file"
 			echo > "$log_dir"
 
+                        # Prepare
+
 			[[ $workflow == 'BWA-Mem' ]] && [[ ! -f $base_dir/data/$donor/normal.unaligned.bam ]] && $base_dir/bin/prepare_unaligned.sh $donor &>> "$log_dir"
+
 			[[ $workflow == 'DKFZ' ]] && [[ ! -f  $base_dir/tests/Delly/$donor ]] && $base_dir/bin/run_test.sh Delly $donor &>> "$log_dir"
-			[[ $workflow == 'BiasFilter' ]] && [[ ! -f $base_dir/data/$donor/consensus.vcf ]] && $base_dir/bin/get_gnos_vcf.sh $consensus_vcf_sub $base_dir/data/$donor/consensus.vcf.gz  &>> "$log_dir" && gunzip  $base_dir/data/$donor/consensus.vcf.gz &>> "$log_dir"
+
+			[[ $workflow == 'BiasFilter' ]] && [[ ! -f $base_dir/data/$donor/consensus.vcf ]] && $base_dir/bin/get_gnos_vcf.sh $consensus_vcf_sub $base_dir/data/$donor/consensus.vcf.gz  &>> "$log_dir" && gunzip  $base_dir/data/$donor/consensus.vcf.gz &>> "$log_dir" 
+
+			[[ $workflow == 'BiasFilter' ]] && [[ ! -f $base_dir/data/$donor/consensus.filter.vcf ]] && grep -v "LOWSUPPORT\|OXOG" $base_dir/data/$donor/consensus.vcf | sed 's/bPcr\|bSeq//g' > $base_dir/data/$donor/consensus.filter.vcf 2>> "$log_dir"
+
+                        # Run
 
 			[[ ! -d  $base_dir/tests/$workflow/$donor/output ]] && $base_dir/bin/run_test.sh $workflow $donor &>> "$log_dir"
+
+                        # Evaluate
 
 			[[ $workflow == 'BWA-Mem' ]] && bin/compare_bwa_bam.sh $base_dir/tests/$workflow/$donor/output/${donor}.merged_output.bam $base_dir/data/$donor/tumor.bam $base_dir/data/$donor/normal.bam | tee -a "$result_file"
 
@@ -44,6 +54,8 @@ for line in $(cat $donor_file); do
 					 bin/compare_result_type.sh $workflow $donor $type 2>> "$log_dir"  | tee -a "$result_file" 
 				done;	
 			fi
+
+                        # Cleanup
 
 			rm -Rf $base_dir/tests/$workflow/$donor/datastore
 

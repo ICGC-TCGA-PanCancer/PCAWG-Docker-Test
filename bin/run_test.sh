@@ -13,6 +13,7 @@ data_dir="$base_dir/data/$donor/"
 tumor_bam="$data_dir/tumor.bam"
 normal_bam="$data_dir/normal.bam"
 consensus_vcf="$data_dir/consensus.vcf"
+consensus_filter_vcf="$data_dir/consensus.filter.vcf"
 
 mkdir -p "$directory"
 mkdir -p "$output_dir"
@@ -31,7 +32,7 @@ then
 	unaligned_json=${unaligned_json%,\\n}
 fi
 
-cat $base_dir/etc/$workflow.json.template | sed "s#\\[CONSENSUS-VCF\\]#$consensus_vcf#g;s#\\[DELLY-DIR\\]#$delly_dir#g;s#\\[RESOURCE-DIR\\]#$resource_dir#g;s#\\[OUTPUT-DIR\\]#$output_dir#g;s#\\[DONOR\\]#$donor#g;s#\\[TUMOR-BAM\\]#$tumor_bam#g;s#\\[NORMAL-BAM\\]#$normal_bam#g;s#\\[TYPE\\]#$type#g;s#\\[UNALIGNED\\]#$unaligned_json#g" > $directory/Dockstore.json
+cat $base_dir/etc/$workflow.json.template | sed "s#\\[CONSENSUS-FILTER-VCF\\]#$consensus_filter_vcf#g;s#\\[CONSENSUS-VCF\\]#$consensus_vcf#g;s#\\[DELLY-DIR\\]#$delly_dir#g;s#\\[RESOURCE-DIR\\]#$resource_dir#g;s#\\[OUTPUT-DIR\\]#$output_dir#g;s#\\[DONOR\\]#$donor#g;s#\\[TUMOR-BAM\\]#$tumor_bam#g;s#\\[NORMAL-BAM\\]#$normal_bam#g;s#\\[TYPE\\]#$type#g;s#\\[UNALIGNED\\]#$unaligned_json#g" > $directory/Dockstore.json
 
 cd "$directory"
 
