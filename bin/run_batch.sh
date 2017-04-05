@@ -19,8 +19,8 @@ for line in $(cat $donor_file); do
         if [ $target_donor == "all" -o $target_donor == $donor ]; then
                 echo "Processing donor: $donor"
 
-		[[ ! -d  $base_dir/data/$donor ]] && $base_dir/bin/get_gnos_donor.sh $donor $tumor_sub $normal_sub
-		#[[ ! -d  $base_dir/data/$donor ]] && $base_dir/bin/get_icgc_donor.sh $donor $tumor_obj $normal_obj
+		[[ ! -d  $base_dir/data/$donor/normal.bam ]] && $base_dir/bin/get_gnos_donor.sh $donor $tumor_sub $normal_sub
+		#[[ ! -d  $base_dir/data/$donor/normal.bam ]] && $base_dir/bin/get_icgc_donor.sh $donor $tumor_obj $normal_obj
 
 		for workflow in $(echo $workflows|sed 's/,/\n/'); do
 			result_file=$base_dir/${donor}.${workflow}.comparison.txt
@@ -31,7 +31,7 @@ for line in $(cat $donor_file); do
 
                         # Prepare
 
-			[[ $workflow == 'BWA-Mem' ]] && [[ ! -f $base_dir/data/$donor/normal.unaligned.bam ]] && $base_dir/bin/prepare_unaligned.sh $donor &>> "$log_dir"
+			[[ $workflow == 'BWA-Mem' ]] && [[ ! -f $base_dir/data/$donor/normal_unaligned_bams ]] && $base_dir/bin/download_unaligned.sh $donor &>> "$log_dir"
 
 			[[ $workflow == 'DKFZ' ]] && [[ ! -f  $base_dir/tests/Delly/$donor ]] && $base_dir/bin/run_test.sh Delly $donor &>> "$log_dir"
 
