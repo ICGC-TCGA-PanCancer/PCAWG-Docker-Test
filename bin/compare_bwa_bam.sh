@@ -1,24 +1,18 @@
 #!/bin/bash
 bwa_bam=$1
-tumor=$2
-normal=$3
+orig_bam=$2
 
 TAB="	"
 
 base_dir=$(dirname $(dirname $(readlink -f bin/get_gnos_donor.sh)))
 tmp_dir="$base_dir/tmp/BWA_BAM_compare"
-tumor_cut="$tmp_dir/tumor.cut"
-normal_cut="$tmp_dir/normal.cut"
-orig_cut="$tmp_dir/orig.cut"
 bwa_cut="$tmp_dir/bwa.cut"
+orig_cut="$tmp_dir/orig.cut"
 comparison="$tmp_dir/comparison"
 
 mkdir -p $tmp_dir
 samtools view -f 64 "$bwa_bam" | cut -f 1,3,4,17 | LC_ALL=C sort -t "$TAB" > $bwa_cut
-
-samtools view -f 64 "$tumor"  | cut -f 1,3,4,17  > $tumor_cut
-samtools view -f 64 "$normal"  | cut -f 1,3,4,17 > $normal_cut
-cat  $tumor_cut $normal_cut | LC_ALL=C sort -t "$TAB" > $orig_cut
+samtools view -f 64 "$orig_bam" | cut -f 1,3,4,17 | LC_ALL=C sort -t "$TAB" > $orig_cut
 
 LC_ALL=C join "$bwa_cut" "$orig_cut" > $comparison
 
