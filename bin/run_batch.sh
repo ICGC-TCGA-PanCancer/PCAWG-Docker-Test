@@ -35,7 +35,9 @@ for line in $(cat $donor_file); do
 
 			[[ $workflow == 'DKFZ' ]] && [[ ! -f  $base_dir/tests/Delly/$donor ]] && $base_dir/bin/run_test.sh Delly $donor &>> "$log_dir"
 
-			[[ $workflow == 'BiasFilter' ]] && [[ ! -f $base_dir/data/$donor/consensus.vcf ]] && $base_dir/bin/get_gnos_vcf.sh $consensus_vcf_sub $base_dir/data/$donor/consensus.vcf.gz  &>> "$log_dir" && gunzip  $base_dir/data/$donor/consensus.vcf.gz &>> "$log_dir" 
+			if [ $workflow == 'BiasFilter' -o $workflow == 'Merge-Annotate' ]; then
+			  [[ ! -f $base_dir/data/$donor/consensus.vcf ]] && $base_dir/bin/get_gnos_vcf.sh $consensus_vcf_sub $base_dir/data/$donor/consensus.vcf.gz  &>> "$log_dir" && gunzip  $base_dir/data/$donor/consensus.vcf.gz &>> "$log_dir" 
+			fi
 
 			[[ $workflow == 'BiasFilter' ]] && [[ ! -f $base_dir/data/$donor/consensus.filter.vcf ]] && grep -v "LOWSUPPORT\|OXOG" $base_dir/data/$donor/consensus.vcf | sed 's/bPcr\|bSeq//g' > $base_dir/data/$donor/consensus.filter.vcf 2>> "$log_dir"
 

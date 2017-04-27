@@ -4,6 +4,7 @@ tests/
 .crap/
 etc/keyfile.txt
 tmp/
+ICGC/
 icgc-storage-client-1.0.21/logs/client.log
 icgc-storage-client-1.0.21/conf/application.properties
 PCAWG/SNV_MNV_Mar28.tgz

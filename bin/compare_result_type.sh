@@ -28,7 +28,7 @@ new_list="${new_vcf}.list"
 # GET ORIGINAL VCF FILE FROM GNOS
 if [[ ! -f $orig_vcf ]]; then
 	case $workflow in
-		DKFZ)
+		DKFZ|Delly)
 			workflow_tag="dkfz_embl"
 		;;
 		Sanger)
@@ -39,6 +39,7 @@ if [[ ! -f $orig_vcf ]]; then
 			exit -1
 		;;
 	esac
+	#gnos_column=$(head -n 1 $release_file  |tr '\t' '\n' | nl |grep ${workflow_tag}_variant_calling_gnos_id|cut -f 1| tr -s '\n' ' '| sed 's/^\s*//;s/\s\s*/,/g')
 	gnos_column=$(head -n 1 $release_file  |tr '\t' '\n' | nl |grep ${workflow_tag}_variant_calling_gnos_id|cut -f 1)
 	gnos_id=$(grep $donor $release_file  | cut -f $gnos_column)
 	$base_dir/bin/get_gnos_type_vcf.sh $gnos_id $orig_vcf $type
@@ -46,7 +47,7 @@ fi
 
 # GET NEW VCF FILE WORKFLOW OUTPUT
 case $workflow in
-  	DKFZ)
+  	DKFZ|Delly)
                 if [ "$type" == "somatic.sv" -o "$type" == "germline.sv" ]; then
 			workflow_result_vcf="${output_dir/DKFZ/Delly}/${donor}.delly.${type}.vcf.gz"
 		else

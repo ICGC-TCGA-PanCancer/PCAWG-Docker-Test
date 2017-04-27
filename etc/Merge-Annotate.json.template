@@ -1,0 +1,23 @@
+{
+  "output": "out",
+  "tumour_bam": {
+    "path": "[TUMOR-BAM]",
+    "format": "http://edamontology.org/format_2572",
+    "class": "File"
+  },
+  "normal_bam": {
+    "path": "[NORMAL-BAM]",
+    "format": "http://edamontology.org/format_2572",
+    "class": "File"
+  },
+  "variant_type": "SNV",
+  "annotated_vcf": {
+    "path": "[OUTPUT-DIR]/[DONOR].annotated.vcf",
+    "class": "File"
+  },
+  "input_vcf": {
+    "path": "[CONSENSUS-VCF].gz",
+    "format": "http://edamontology.org/format_3016",
+    "class": "File"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "run_id": "fill me in",
+  "run_id": "[DONOR]",
+  "delly": {
+    "path": "[DONOR-DIR]/delly.SV.vcf.gz",
+    "class": "File"
+  },
+  "brass": {
+    "path": "[DONOR-DIR]/brass.SV.vcf.gz",
+    "class": "File"
+  },
+  "dranger": {
+    "path": "[DONOR-DIR]/dranger.SV.vcf.gz",
+    "class": "File"
+  },
+  "snowman": {
+    "path": "[DONOR-DIR]/snowman.SV.vcf.gz",
+    "class": "File"
+  },
+  "log": {
+    "path": "[OUTPUT-DIR]/[DONOR].log",
+    "class": "File"
+  },
+  "sv_tar": {
+    "path": "[OUTPUT-DIR]/[DONOR].sv.tar.gz",
+    "class": "File"
+  },
+  "somatic_sv_bedpe": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.sv.bedpe",
+    "class": "File"
+  },
+  "somatic_sv_full_bedpe": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.sv_full.bedpe",
+    "class": "File"
+  },
+  "somatic_sv_vcf": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.sv.vcf.gz",
+    "class": "File"
+  },
+  "somatic_sv_tbi": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.sv.vcf.gz.tbi",
+    "class": "File"
+  },
+  "somatic_sv_full_vcf": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.sv_full.vcf.gz",
+    "class": "File"
+  },
+  "somatic_sv_full_tbi": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.sv_full.vcf.gz.tbi",
+    "class": "File"
+  },
+  "somatic_sv_stat": {
+    "path": "[OUTPUT-DIR]/[DONOR].somatic.sv.stat",
+    "class": "File"
+  }
+}
