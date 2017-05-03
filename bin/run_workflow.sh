@@ -1,6 +1,7 @@
 #!/bin/bash 
 workflows=$1
 donors=$2
+gnos_or_igcg=$3
 
 base_dir=$(dirname $(dirname $(readlink -f bin/get_gnos_donor.sh)))
 icgc_dir="$base_dir/ICGC"
@@ -13,13 +14,15 @@ function get_aligned_bams {
 	if [ ! -f  $base_dir/data/$donor/normal.bam ]; then
 		local donor_id_dir="$icgc_dir/$donor/ID"
 
+		tumor_bam_file=$(ls $donor_id_dir/Aligned*tumour* | grep -v TopHat | grep -v STAR | head -n 1)
+		normal_bam_file=$(ls $donor_id_dir/Aligned*Normal* | grep -v TopHat | grep -v STAR | head -n 1)
 		if [ "$download_type" == 'gnos' ]; then
-			tumor_sub=$(cut -f 2 $donor_id_dir/Aligned*tumour*)
-			normal_sub=$(cut -f 2 $donor_id_dir/Aligned*Normal*)
+			tumor_sub=$(cut -f 2 "$tumor_bam_file")
+			normal_sub=$(cut -f 2 "$normal_bam_file")
 			$base_dir/bin/get_gnos_donor.sh $donor $tumor_sub $normal_sub
 		else
-			tumor_obj=$(cut -f 1 $donor_id_dir/Aligned*tumour*)
-			normal_obj=$(cut -f 1 $donor_id_dir/Aligned*Normal*)
+			tumor_obj=$(cut -f 1 "$tumor_bam_file")
+			normal_obj=$(cut -f 1 "$normal_bam_file")
 			$base_dir/bin/get_icgc_donor.sh $donor $tumor_obj $normal_obj
 		fi
 	fi
@@ -39,7 +42,7 @@ function get_consensus_vcf {
 	if [ ! -f $base_dir/data/$donor/consensus.vcf ]; then
 		local donor_id_dir="$icgc_dir/$donor/ID"
 
-		consensus_vcf_sub=$(cut -f 2 $donor_id_dir/SSM*consensus*)
+		consensus_vcf_sub=$(cut -f 2 $donor_id_dir/SSM*consensus*snv_mnv*)
 		$base_dir/bin/get_gnos_vcf.sh $consensus_vcf_sub $base_dir/data/$donor/consensus.vcf.gz  
                 cp  $base_dir/data/$donor/consensus.vcf.gz $base_dir/data/$donor/consensus.vcf.gz.tmp
                 gunzip  $base_dir/data/$donor/consensus.vcf.gz
@@ -68,18 +71,18 @@ for donor in $(echo $donors | tr ',' '\n'); do
 		# DOWNLOAD DATA
 		case $workflow in
 		DKFZ|Sanger|Delly)
-			get_aligned_bams $donor
+			get_aligned_bams $donor $gnos_or_igcg
 			;;
 		BWA-Mem)
-			get_aligned_bams $donor
+			get_aligned_bams $donor $gnos_or_igcg
 			get_unaligned_bams $donor
 			;;
 		BiasFilter)
 			get_consensus_vcf $donor
 			;;
 		Merge-Annotate)
-			get_aligned_bams $donor
 			get_consensus_vcf $donor
+			get_aligned_bams $donor $gnos_or_igcg
 			;;
 		SV-Merge)
 			get_sv_vcf $donor
