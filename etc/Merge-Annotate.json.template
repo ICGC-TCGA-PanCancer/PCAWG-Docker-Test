@@ -12,11 +12,11 @@
   },
   "variant_type": "SNV",
   "annotated_vcf": {
-    "path": "[OUTPUT-DIR]/[DONOR].annotated.vcf",
+    "path": "[OUTPUT-DIR]/[DONOR].[PROVIDER].oxoG.annotated.vcf",
     "class": "File"
   },
   "input_vcf": {
-    "path": "[CONSENSUS-VCF].gz",
+    "path": "[DONOR-DIR]/[PROVIDER].oxoG.vcf.gz",
     "format": "http://edamontology.org/format_3016",
     "class": "File"
   }

@@ -35,6 +35,15 @@ function get_unaligned_bams {
 	fi
 }
 
+function get_workflow_vcf {
+	local donor=$1
+
+	if [ ! -f $base_dir/data/$donor/broad.oxoG.vcf.gz ]; then
+		local donor_id_dir="$icgc_dir/$donor/ID"
+           	$base_dir/bin/get_gnos_workflow_results.sh $donor
+	fi
+}
+
 
 function get_consensus_vcf {
 	local donor=$1
@@ -81,7 +90,7 @@ for donor in $(echo $donors | tr ',' '\n'); do
 			get_consensus_vcf $donor
 			;;
 		Merge-Annotate)
-			get_consensus_vcf $donor
+			get_workflow_vcf $donor
 			get_aligned_bams $donor $gnos_or_igcg
 			;;
 		SV-Merge)
@@ -96,8 +105,11 @@ for donor in $(echo $donors | tr ',' '\n'); do
 			[[ ! -d  $base_dir/tests/Delly/$donor/output ]] && $base_dir/bin/run_test.sh Delly $donor 
 			[[ ! -d  $base_dir/tests/$workflow/$donor/output ]] && $base_dir/bin/run_test.sh $workflow $donor 
 			;;
-		Sanger|Delly|BiasFilter|Merge-Annotate|SV-Merge)
+		Sanger|Delly|BiasFilter|SV-Merge)
 			[[ ! -d  $base_dir/tests/$workflow/$donor/output ]] && $base_dir/bin/run_test.sh $workflow $donor 
+			;;
+		Merge-Annotate)
+			[[ ! -d  $base_dir/tests/$workflow/$donor/output ]] && $base_dir/bin/run_merge_annotate.sh $donor 
 			;;
 		BWA-Mem)
 			[[ ! -d  $base_dir/tests/$workflow/$donor/normal ]] && $base_dir/bin/run_bwa_test.sh $donor 
@@ -120,6 +132,7 @@ for donor in $(echo $donors | tr ',' '\n'); do
 			bin/compare_bias_filter.sh $donor
 			;;
 		Merge-Annotate)
+			bin/compare_merge_annotate.sh $donor
 			;;
 		SV-Merge)
 			bin/compare_consensus_SV.sh $donor

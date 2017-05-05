@@ -3,6 +3,7 @@
 donor=$1
 
 base_dir=$(dirname $(dirname $(readlink -f bin/get_gnos_donor.sh)))
+donor_dir="$base_dir/data/$donor"
 tmp_dir="$base_dir/tmp/workflow_results/$donor"
 PCAWG_dir="$base_dir/PCAWG/"
 
@@ -18,3 +19,18 @@ echo $gnos_id
 mkdir -p $tmp_dir
 echo "$gnos_client $gnos_repo/cghub/data/analysis/download/$gnos_id"
 (cd $tmp_dir; $gnos_client $gnos_repo/cghub/data/analysis/download/$gnos_id)
+
+for p in broad dkfz muse sanger; do 
+	file=$(find $tmp_dir/*/ |grep -v \.tbi$ |grep oxoG| grep -i $p |head -n 1)
+	if [ -f "$file" ]; then
+		echo $file
+		cp "$file" "$donor_dir/${p}.oxoG.vcf.gz"
+	fi
+
+	file=$(find $tmp_dir/*/ |grep -v \.tbi$ | grep annotated| grep SNV | grep -i $p |head -n 1)
+	if [ -f "$file" ]; then
+		echo $file
+		cp "$file" "$donor_dir/${p}.oxoG.annotated.vcf.gz"
+	fi
+done
+
