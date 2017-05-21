@@ -105,7 +105,7 @@ for donor in $(echo $donors | tr ',' '\n'); do
 			[[ ! -d  $base_dir/tests/Delly/$donor/output ]] && $base_dir/bin/run_test.sh Delly $donor 
 			[[ ! -d  $base_dir/tests/$workflow/$donor/output ]] && $base_dir/bin/run_test.sh $workflow $donor 
 			;;
-		Sanger|Delly|BiasFilter|SV-Merge)
+		Sanger|Delly|BiasFilter|SV-Merge|Consensus)
 			[[ ! -d  $base_dir/tests/$workflow/$donor/output ]] && $base_dir/bin/run_test.sh $workflow $donor 
 			;;
 		Merge-Annotate)

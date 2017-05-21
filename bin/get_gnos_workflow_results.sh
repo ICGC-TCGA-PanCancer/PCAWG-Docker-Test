@@ -21,16 +21,20 @@ echo "$gnos_client $gnos_repo/cghub/data/analysis/download/$gnos_id"
 (cd $tmp_dir; $gnos_client $gnos_repo/cghub/data/analysis/download/$gnos_id)
 
 for p in broad dkfz muse sanger; do 
-	file=$(find $tmp_dir/*/ |grep -v \.tbi$ |grep oxoG| grep -i $p |head -n 1)
+	p_alt=$p
+	[[ $p_alt == 'sanger' ]] && p_alt='svcp'
+	file=$(find $tmp_dir/*/ |grep -v \.tbi$ |grep oxoG| grep -i $p_alt |head -n 1)
 	if [ -f "$file" ]; then
 		echo $file
-		cp "$file" "$donor_dir/${p}.oxoG.vcf.gz"
+		cp "$file" "$donor_dir/${p_alt}.oxoG.vcf.gz"
+		tabix "$donor_dir/${p_alt}.oxoG.vcf.gz"
 	fi
 
 	file=$(find $tmp_dir/*/ |grep -v \.tbi$ | grep annotated| grep SNV | grep -i $p |head -n 1)
 	if [ -f "$file" ]; then
 		echo $file
 		cp "$file" "$donor_dir/${p}.oxoG.annotated.vcf.gz"
+		tabix "$donor_dir/${p}.oxoG.annotated.vcf.gz"
 	fi
 done
 
