@@ -112,6 +112,10 @@ for donor in $(echo $donors | tr ',' '\n'); do
 		SV-Merge)
 			get_sv_vcf $donor
 			;;
+		Consensus)
+			get_consensus_vcf $donor
+			get_workflow_vcf $donor
+			;;
 		esac 1>&2
 		
 		# RUN
@@ -152,6 +156,9 @@ for donor in $(echo $donors | tr ',' '\n'); do
 			;;
 		SV-Merge)
 			bin/compare_consensus_SV.sh $donor
+			;;
+		Consensus)
+			bin/compare_consensus.sh $donor
 			;;
 		esac
 		

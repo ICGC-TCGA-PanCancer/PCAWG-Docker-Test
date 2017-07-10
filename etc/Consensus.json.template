@@ -1,0 +1,32 @@
+{
+  "variant_type": "snv",
+  "dbs_dir": {
+    "path": "[CONSENSUS-RESOURCES]",
+    "class": "Directory"
+  },
+  "broad_input_file": {
+    "path": "[DONOR-DIR]/broad.oxoG.annotated.vcf.gz",
+    "class": "File"
+  },
+  "dkfz_embl_input_file": {
+    "path": "[DONOR-DIR]/dkfz.oxoG.annotated.vcf.gz",
+    "class": "File"
+  },
+  "muse_input_file": {
+    "path": "[DONOR-DIR]/muse.oxoG.annotated.vcf.gz",
+    "class": "File"
+  },
+  "sanger_input_file": {
+    "path": "[DONOR-DIR]/sanger.oxoG.annotated.vcf.gz",
+    "class": "File"
+  },
+  "consensus_zipped_vcf": {
+    "path": "[OUTPUT-DIR]/[DONOR].consensus.vcf.gz",
+    "class": "File"
+  },
+  "output_file_name":"[DONOR].consensus",
+  "consensus_vcf_index": {
+    "path": "[OUTPUT-DIR]/[DONOR].consensus.vcf.gz.tbi",
+    "class": "File"
+  }
+}
