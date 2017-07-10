@@ -73,13 +73,14 @@ bin/run_workflow.sh <Step> <Donors> [<download_type>]
 for example
 
 ```sh
-bin/run_workflow.sh DKFZ,BiasFilter,Merge-Annotate,SV-Merge,Consensus,Sanger DO52621 icgc
+bin/run_workflow.sh DKFZ,BiasFilter,Merge-Annotate,SV-Merge,Consensus,Sanger DO52621,DO12814 icgc
 ```
 
-The last parameter ```download_type``` can be ```icgc``` or ```gnos``` and is used to
-specify the backend used to download the donor BAM files. Note that other donor data such
-as some intermediate workflow result files is tied to specific backends, and thus
-specifying a different one here has no consequence.
+The last parameter ```download_type``` can be ```icgc``` or ```gnos``` and is
+used to specify the backend used to download the donor BAM files (it defaults
+to gnos). Note that other donor data such as some intermediate workflow result
+files is tied to specific backends, and thus specifying a different one here
+has no consequence.
 
 The previous command with output through STDOUT the evaluation results and through STDERR
 different log outputs, so its a good idea to redirect them as is done here:
@@ -187,5 +188,30 @@ Note that to run DKFZ you need to have ran Delly before so the bedpe file is pro
 bin/run_test.sh DKFZ DO50398
 ```
 
-The results will be under `tests/<workflow>/<sample>/output/<sample>.*` for example `tests/Sanger/HCC1143/output/HCC1143.somatic.snv.mnv.tar.gz`
-After the process is finished you may want to remove the directory `tests/<workflow>/<sample>/datadir/` since it holds a copy of the input files.
+The results will be under `tests/<workflow>/<sample>/output/<sample>.*` for
+example `tests/Sanger/HCC1143/output/HCC1143.somatic.snv.mnv.tar.gz`
+
+After the process is finished you may want to remove the directory
+`tests/<workflow>/<sample>/datadir/` since it holds a copy of the input files.
+
+### Running BWA-Mem over unaligned BAMs
+
+The BWA-Mem workflow is a very special case in our scripts. It is the only
+script that aligns BAM files so it needs an unaligned BAM file as input.
+Unfortunately these unaligned BAM files are not generally available but an
+exception has been made for the donors DO46792, DO51057, and DO52707, which are
+served at the DKFZ GNOS instance (this should change soon). This script suite
+will only work for those donors. 
+
+Alternatively one can test the workflow by un-aligning the already aligned
+ones, to do this you need to use the scripts ```bin/prepare_unaligned.sh```
+which also requires you to install picard tools using the
+```bin/install_picard.sh``` script.
+
+Un-aligned BAMs will unfortunately not be identical to the original not aligned
+BAM files, since reads will not be in the same order, thus some small
+percentage of the reads will have different alignment. This is expected.
+
+
+
+
