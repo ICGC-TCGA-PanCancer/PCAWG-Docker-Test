@@ -11,6 +11,7 @@ function get_aligned_bams {
 	local download_type=$2
 	[[ "x$download_type" == "x" ]] && download_type='gnos'
 
+	echo "Downloading aligned BAM files for $donor [$download_type]"
 	if [ ! -f  $base_dir/data/$donor/normal.bam ]; then
 		local donor_id_dir="$icgc_dir/$donor/ID"
 
@@ -26,12 +27,27 @@ function get_aligned_bams {
 			$base_dir/bin/get_icgc_donor.sh $donor $tumor_obj $normal_obj
 		fi
 	fi
+
+	if [ $? == 0 ]; then
+		echo "DONE Downloading aligned BAM files for $donor [$download_type]"
+	else
+		echo "ERROR Downloading aligned BAM files for $donor [$download_type]"
+		exit -1
+	fi
 }
 
 function get_unaligned_bams {
 	local donor=$1
+	echo "Downloading un-aligned BAM files for $donor"
 	if [ ! -f $base_dir/data/$donor/normal_unaligned_bams ]; then 
            	$base_dir/bin/download_unaligned.sh $donor
+	fi
+
+	if [ $? == 0 ]; then
+		echo "DONE Downloading un-aligned BAM files for $donor"
+	else
+		echo "ERROR Downloading un-aligned BAM files for $donor"
+		exit -1
 	fi
 }
 
