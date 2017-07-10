@@ -12,12 +12,12 @@
   },
   "reference-gz":
   {
-    "path": "https://dcc.icgc.org/api/v1/download?fn=/PCAWG/reference_data/pcawg-bwa-mem/genome.fa.gz",
+    "path": "[RESOURCE-DIR]/genome.fa.gz",
     "class": "File"
   },
   "reference-gc":
   {
-    "path": "https://dcc.icgc.org/api/v1/download?fn=/PCAWG/reference_data/pcawg-delly/hs37d5_1000GP.gc",
+    "path": "[RESOURCE-DIR]/hs37d5_1000GP.gc",
     "class": "File"
   },
   "somatic_sv_vcf":
