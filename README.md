@@ -11,12 +11,12 @@ pipeline over the input data and comparing the result with the officially releas
 files. 
 
 These scripts attempt to cover the complete workflow of analysis of the PCAWG variant
-calling infrastructure, but since its not yet complete, they do not attempt to run it
+calling infrastructure; but since it's not yet complete they do not attempt to run it
 start-to-finish, but rather test each step separately. In other words, for each step we
 take the inputs from the official submitted results (since fortunately these intermediate
 results are still available) not by the results produced by this scripts for the previous
 step. This might change once all the steps are made available, and it should be easy to
-adapt them so that they run as a workflow.
+adapt them so that they run as a complete workflow.
 
 A few clarifications about notation. The term 'workflow' is used also to refer to each
 individual step; it will not be used that way in this document, but you might find it used
@@ -67,7 +67,7 @@ corresponding official results to evaluate it against.
 The syntax is simply:
 
 ```sh
-bin/run_workflow.sh <Step> <Donors> [<download_type>]
+bin/run_workflow.sh <Steps> <Donors> [<download_type>]
 ```
 
 for example
@@ -79,8 +79,8 @@ bin/run_workflow.sh DKFZ,BiasFilter,Merge-Annotate,SV-Merge,Consensus,Sanger DO5
 The last parameter ```download_type``` can be ```icgc``` or ```gnos``` and is
 used to specify the backend used to download the donor BAM files (it defaults
 to gnos). Note that other donor data such as some intermediate workflow result
-files is tied to specific backends, and thus specifying a different one here
-has no consequence.
+files are tied to specific backends, and thus specifying a different one here
+has no consequence for those data.
 
 The previous command with output through STDOUT the evaluation results and through STDERR
 different log outputs, so its a good idea to redirect them as is done here:
@@ -98,7 +98,7 @@ There are three main types of scripts: for downloading input and validation data
 the BWA-Mem aligner.
 
 We have seen the ```bin/run_workflow.sh``` which is the master script that runs all other
-scripts. 
+scripts. It's worth reading it to get a sense of how these scripts work as a whole.
 
 The second must important script is the ```bin/run_test.sh``` that is in charge of running
 most of the steps, which basically entails configuring the Dockstore.json from its
