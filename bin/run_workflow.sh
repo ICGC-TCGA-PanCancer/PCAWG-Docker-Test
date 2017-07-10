@@ -119,7 +119,6 @@ for donor in $(echo $donors | tr ',' '\n'); do
 		esac 1>&2
 		
 		# RUN
-		
 		case $workflow in
 		DKFZ)
 			[[ ! -d  $base_dir/tests/Delly/$donor/output ]] && $base_dir/bin/run_test.sh Delly $donor 
@@ -137,7 +136,6 @@ for donor in $(echo $donors | tr ',' '\n'); do
 		esac 1>&2
 
 		# EVALUATE
-
 		case $workflow in
 		DKFZ|Sanger|Delly)
 			for type in  germline.snv.mnv germline.indel germline.sv germline.cnv somatic.snv.mnv somatic.indel somatic.sv somatic.cnv; do
@@ -163,10 +161,8 @@ for donor in $(echo $donors | tr ',' '\n'); do
 		esac
 		
 		# CLEANUP
-
 		rm -Rf $base_dir/tests/$workflow/$donor/datastore 1>&2
 		rm -Rf $base_dir/tests/$workflow/$donor/*/datastore 1>&2
-
 		[[ $workflow == 'DKFZ' ]] && rm -Rf $base_dir/tests/Delly/$donor/datastore 1>&2
 
 	done
