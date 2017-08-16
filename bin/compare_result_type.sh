@@ -75,8 +75,8 @@ case $workflow in
 esac
 
 # EXTRACT MUTATIONS FROM BOTH FILES
-zcat "$orig_vcf" | grep -v "#"| cut -f 1,2,4,5 | tr '\t' ':' | sort > $orig_list
-zcat "$new_vcf" | grep -v "#"| cut -f 1,2,4,5 | tr '\t' ':' | sort > $new_list
+zcat "$orig_vcf" | grep -v "^#"| cut -f 1,2,4,5 | tr '\t' ':' | sort > $orig_list
+zcat "$new_vcf" | grep -v "^#"| cut -f 1,2,4,5 | tr '\t' ':' | sort > $new_list
 
 extra_lines_c=$(comm -2 -3 $new_list $orig_list | wc -l)
 common_lines_c=$(comm -1 -2 $new_list $orig_list | wc -l)

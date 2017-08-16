@@ -32,8 +32,8 @@ cp "$output_dir/$donor.consensus.vcf.gz" $new_vcf
 rm $orig_list
 rm $new_list
 for caller in broad dkfz muse sanger; do
-	zcat "$orig_vcf" | grep -v "#"| grep $caller| cut -f 1,2,4,5 | tr '\t' ':' | sed "s/$/:$caller/g" | sort >> $orig_list
-	zcat "$new_vcf" | grep -v "#"| grep $caller | cut -f 1,2,4,5 | tr '\t' ':' | sed "s/$/:$caller/g" | sort >> $new_list
+	zcat "$orig_vcf" | grep -v "^#"| grep $caller| cut -f 1,2,4,5 | tr '\t' ':' | sed "s/$/:$caller/g" | sort >> $orig_list
+	zcat "$new_vcf" | grep -v "^#"| grep $caller | cut -f 1,2,4,5 | tr '\t' ':' | sed "s/$/:$caller/g" | sort >> $new_list
 done
 
 extra_lines_c=$(comm -2 -3 $new_list $orig_list | wc -l)
