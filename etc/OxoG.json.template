@@ -1,0 +1,50 @@
+{
+    "vcfdir": {
+        "path": "[DONOR-DIR]",
+        "class": "Directory"
+    },
+    "inputFileDirectory": {
+        "class":"Directory",
+        "path":"[DONOR-DIR]",
+        "location":"[DONOR-DIR]"
+    },
+    "refFile": {
+        "path": "[RESOURCE-DIR]/Homo_sapiens_assembly19.fasta",
+        "class": "File"
+    },
+    "normalBam": {
+        "path": "[NORMAL-BAM]",
+        "class": "File"
+    },
+    "tumours":
+    [
+        {
+            "tumourId": "tumor",
+            "bamFileName": "tumor.bam",
+            "associatedVcfs":
+            [
+                "broad-mutect-v3.somatic.snv_mnv.vcf.gz",
+                "broad-dRanger_snowman-10.somatic.sv.vcf.gz",
+                "broad-snowman-10.somatic.indel.vcf.gz",
+                "dkfz-snvCalling_1-0-132-1-hpc.somatic.snv_mnv.vcf.gz",
+                "dkfz-indelCalling_1-0-132-1-hpc.somatic.indel.vcf.gz",
+                "embl-delly_1-0-0-preFilter-hpc.somatic.sv.vcf.gz",
+                "MUSE_1-0rc-b391201-vcf.somatic.snv_mnv.vcf.gz",
+                "svcp_1-0-5.somatic.snv_mnv.vcf.gz",
+                "svcp_1-0-5.somatic.indel.vcf.gz",
+                "svfix2_4-0-12.somatic.sv.vcf.gz"
+            ]
+        }
+    ],
+    "oxoQScore": "10.3",
+    "out_dir": "/var/spool/cwl/",
+    "snv-padding": "200",
+    "sv-padding": "10",
+    "indel-padding": "205",
+    "minibamName": "minibam.bam",
+    "refDataDir": {
+        "class":"Directory",
+        "path":"/datastore/oxog_refdata",
+        "location":"/datastore/oxog_refdata"
+    }
+}

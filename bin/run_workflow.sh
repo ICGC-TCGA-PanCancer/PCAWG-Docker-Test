@@ -20,11 +20,11 @@ function get_aligned_bams {
 		if [ "$download_type" == 'gnos' ]; then
 			tumor_sub=$(cut -f 2 "$tumor_bam_file")
 			normal_sub=$(cut -f 2 "$normal_bam_file")
-			$base_dir/bin/get_gnos_donor.sh $donor $tumor_sub $normal_sub
+			$base_dir/bin/get_gnos_bams.sh $donor $tumor_sub $normal_sub
 		else
 			tumor_obj=$(cut -f 1 "$tumor_bam_file")
 			normal_obj=$(cut -f 1 "$normal_bam_file")
-			$base_dir/bin/get_icgc_donor.sh $donor $tumor_obj $normal_obj
+			$base_dir/bin/get_icgc_bams.sh $donor $tumor_obj $normal_obj
 		fi
 	fi
 

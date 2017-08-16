@@ -39,6 +39,17 @@ cd "$directory"
 
 cwl="$(grep $workflow "$base_dir/etc/workflows" | cut -f 2)"
 
+if grep $workflow "$base_dir/etc/workflows" | cut -f 3 | grep "workflow"; then
+	docker_type='workflow'
+else
+	docker_type='tool'
+fi
+
 echo "Running:"
-echo "cd $directory && dockstore tool launch --script --entry "$cwl"  --json Dockstore.json"
-(cd "$directory" && dockstore tool launch --script --entry $cwl --json Dockstore.json)
+if [ $docker_type == 'tool' ]; then
+	echo "cd $directory && dockstore tool launch --script --entry "$cwl"  --json Dockstore.json"
+	(cd "$directory" && dockstore tool launch --script --entry $cwl --json Dockstore.json)
+else
+	echo "cd $directory && dockstore workflow launch --entry "$cwl"  --json Dockstore.json"
+	(cd "$directory" && dockstore workflow launch --script --entry $cwl --json Dockstore.json)
+fi

@@ -6,3 +6,4 @@ BiasFilter	quay.io/jwerner_dkfz/DKFZBiasFilter:1.2.2
 Merge-Annotate	quay.io/ljdursi/pcawg-merge-annotate:master
 SV-Merge	registry.hub.docker.com/weischenfeldt/pcawg_sv_merge:1.0.2
 Consensus	quay.io/pancancer/pcawg-consensus-caller:latest
+OxoG	ICGC-TCGA-PanCancer/OxoG-Dockstore-Tools/pcawg-oxog-full-workflow:develop	workflow

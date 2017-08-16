@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Finds available files for a donor and takes the object_id and bundle_id
+
 donor=$1
 
 base_dir=$(dirname $(dirname $(readlink -f bin/get_gnos_donor.sh)))
